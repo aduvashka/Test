@@ -41,8 +41,40 @@ figure {
 }
 .main {
   width: 50%;
+  background: rgba(245, 245, 245, 0.7);
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 40%;
+  left: 30%;
+  border: 1px solid transparent;
+  border-radius: 15px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 250px;
+}
+.text {
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+}
+.btn {
+  width: 100px;
+  height: 40px;
+  background-color: #cce1e6;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s all;
+  outline: 0;
+}
+input[type="radio"] {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
 }

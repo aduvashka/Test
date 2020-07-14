@@ -29,21 +29,49 @@ window.addEventListener("DOMContentLoaded", () => {
   let i = 1; //Счетчик номера вопроса
   for (let question of questions) {
     let div = document.createElement("div");
+    div.classList.add("container");
     main.appendChild(div);
 
     let p = document.createElement("p");
+    p.classList.add("text");
     p.innerHTML = question.textQuestion;
     div.appendChild(p);
 
     let form = document.createElement("form");
-    main.appendChild(form);
-
-    for (let answers of question.answers) {
+    div.appendChild(form);
+    form.dataset.correctAnswer = question.correctAnswer; //присваеваем атрибут с правильним ключом
+    let j = 0;
+    for (let answer of question.answers) {
       let input = document.createElement("input");
       input.type = "radio";
       input.name = i;
+      input.innerHTML = answer;
+      input.dataset.answerNum = j++;
       form.appendChild(input);
     }
+    let btn = document.createElement("input");
+    btn.type = "button";
+    btn.classList.add("btn");
+    btn.innerHTML = "Next";
+    form.appendChild(btn);
+
     i++;
   }
+  btn.addEventListener("click", function () {
+    let forms = document.querySelectorAll(".main form");
+    for (let form of forms) {
+      //перебираем в каждой форме инпут отмечаный
+      let inputs = form.querySelectorAll("input");
+      for (let input of inputs) {
+        if (input.checked) {
+          if (input.dataset.answerNum == form.dataset.correctAnswer) {
+            form.style.color = "red";
+          } else {
+            form.style.color = "blue";
+          }
+          break;
+        }
+      }
+    }
+  });
 });
