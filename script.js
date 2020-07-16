@@ -94,6 +94,11 @@ window.addEventListener("DOMContentLoaded", () => {
       item.classList.remove("show"); // все остальные классы удаляем
     });
   }
+  function showContent(item, i = 0) {
+    item[i].classList.add("show");
+    item[i].classList.remove("hide");
+  }
 
-  hideContent(childDiv); // скрыли все картинки
+  hideContent(childDiv);
+  showContent(childDiv);
 });
