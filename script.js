@@ -1,7 +1,7 @@
 "use strict";
 window.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector(".main");
-  console.log(main);
+
   let questions = [
     {
       textQuestion:
@@ -27,6 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
     },
   ];
   let i = 1; //Счетчик номера вопроса
+  let s = 1;
   for (let question of questions) {
     let div = document.createElement("div");
     div.classList.add("container");
@@ -41,37 +42,58 @@ window.addEventListener("DOMContentLoaded", () => {
     div.appendChild(form);
     form.dataset.correctAnswer = question.correctAnswer; //присваеваем атрибут с правильним ключом
     let j = 0;
-    for (let answer of question.answers) {
+    for (let answers of question.answers) {
       let input = document.createElement("input");
       input.type = "radio";
+      input.classList.add("btn_radio");
       input.name = i;
-      input.innerHTML = answer;
+      input.id = `contact${s++}`;
       input.dataset.answerNum = j++;
       form.appendChild(input);
+      let label = document.createElement("label");
+      label.setAttribute("for", `${input.id}`);
+      label.innerHTML = answers;
+      label.classList.add("answer");
+      form.appendChild(label);
     }
     let btn = document.createElement("input");
     btn.type = "button";
     btn.classList.add("btn");
-    btn.innerHTML = "Next";
+    btn.value = "Next";
     form.appendChild(btn);
 
     i++;
-  }
-  btn.addEventListener("click", function () {
-    let forms = document.querySelectorAll(".main form");
-    for (let form of forms) {
-      //перебираем в каждой форме инпут отмечаный
-      let inputs = form.querySelectorAll("input");
-      for (let input of inputs) {
-        if (input.checked) {
-          if (input.dataset.answerNum == form.dataset.correctAnswer) {
-            form.style.color = "red";
-          } else {
-            form.style.color = "blue";
+
+    btn.addEventListener("click", function () {
+      let count = 0; //
+      let forms = document.querySelectorAll(".main form");
+      for (let form of forms) {
+        //перебираем в каждой формеотмечаный инпут
+        let inputs = form.querySelectorAll("input");
+        for (let input of inputs) {
+          if (input.checked) {
+            if (input.dataset.answerNum == form.dataset.correctAnswer) {
+              form.style.backgroundColor = "blue";
+              count++;
+            } else {
+              form.style.backgroundColor = "red";
+            }
+            break;
           }
-          break;
         }
       }
-    }
-  });
+      console.log(count);
+    });
+  }
+
+  const childDiv = main.querySelectorAll(".container");
+
+  function hideContent() {
+    childDiv.forEach((item) => {
+      item.classList.add("hide"); //присвоили класс(спрятать элемент)
+      item.classList.remove("show"); // все остальные классы удаляем
+    });
+  }
+
+  hideContent(childDiv); // скрыли все картинки
 });
