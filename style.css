@@ -73,6 +73,7 @@
   margin: auto;
   margin-top: 35px;
   font-size: 20px;
+  outline: 0;
 }
 .btn_radio {
   margin-bottom: 10px;

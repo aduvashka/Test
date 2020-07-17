@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
       correctAnswer: 2,
     },
     {
-      textQuestion: " ___ Earth is millions of kilometres from ___ Sun",
+      textQuestion: " __ Earth is millions of kilometres from __ Sun",
       answers: ["A,a", "The, the", "none"],
       correctAnswer: 1,
     },
@@ -63,42 +63,45 @@ window.addEventListener("DOMContentLoaded", () => {
     form.appendChild(btn);
 
     i++;
+  }
 
-    btn.addEventListener("click", function () {
-      let count = 0; //
-      let forms = document.querySelectorAll(".main form");
-      for (let form of forms) {
-        //перебираем в каждой формеотмечаный инпут
-        let inputs = form.querySelectorAll("input");
-        for (let input of inputs) {
-          if (input.checked) {
-            if (input.dataset.answerNum == form.dataset.correctAnswer) {
-              form.style.backgroundColor = "blue";
-              count++;
-            } else {
-              form.style.backgroundColor = "red";
-            }
-            break;
-          }
-        }
+  const btn = document.querySelectorAll(".btn"),
+    childDiv = document.getElementsByClassName("container");
+  const btnRadio = document.querySelectorAll(".btn_radio");
+  let now = 0;
+  showContent();
+  valueQuestion();
+  now++;
+  btn.forEach((item, i) => {
+    item.addEventListener("click", next);
+  });
+
+  function valueQuestion(i = 0) {
+    btnRadio[i].addEventListener("change", () => {
+      let countRight = 0; //правильные ответы
+      let countWrong = 0; //неправильные ответы
+      let form = document.querySelector(".main form");
+      if (btnRadio[i].dataset.answerNum == form.dataset.correctAnswer) {
+        countRight++;
+      } else {
+        countWrong++;
       }
-      console.log(count);
     });
   }
-
-  const childDiv = main.querySelectorAll(".container");
-
-  function hideContent() {
-    childDiv.forEach((item) => {
-      item.classList.add("hide"); //присвоили класс(спрятать элемент)
-      item.classList.remove("show"); // все остальные классы удаляем
-    });
-  }
-  function showContent(item, i = 0) {
-    item[i].classList.add("show");
-    item[i].classList.remove("hide");
+  function next() {
+    //Следующий вопрос
+    showContent();
+    i++;
+    valueQuestion(i);
+    now++;
   }
 
-  hideContent(childDiv);
-  showContent(childDiv);
+  function showContent() {
+    for (let i = 0; i < childDiv.length; i++) {
+      childDiv[i].classList.add("hide"); //присвоили класс(спрятать элемент)
+      childDiv[i].classList.remove("show");
+    }
+    childDiv[now].classList.add("show");
+    childDiv[now].classList.remove("hide");
+  }
 });
