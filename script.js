@@ -112,7 +112,6 @@ window.addEventListener("DOMContentLoaded", () => {
     p.innerHTML = `Правильных ответов: ${trueAnswers}<br><br>
     Неправильных ответов: ${falseAnswers}<br>`;
     div.appendChild(p);
-    countBtn.style.display = "none";
     childDiv[childDiv.length - 1].style.display = "none";
   }
 
