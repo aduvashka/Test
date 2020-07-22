@@ -56,52 +56,87 @@ window.addEventListener("DOMContentLoaded", () => {
       label.classList.add("answer");
       form.appendChild(label);
     }
-    let btn = document.createElement("input");
+    let btn = document.createElement("input"); // кнопка следующий вопрос
     btn.type = "button";
-    btn.classList.add("btn");
+    btn.classList.add("btn", "next");
     btn.value = "Next";
     form.appendChild(btn);
 
+    let countBtn = document.createElement("input"); //  кнопка которая отвечает за подсчет ответов
+    countBtn.type = "button";
+    countBtn.classList.add("btn");
+    countBtn.style.display = "none";
+    countBtn.setAttribute("id", "result");
+    countBtn.value = "Результат";
+    form.appendChild(countBtn);
+
     i++;
   }
-
-  const btn = document.querySelectorAll(".btn"),
+  const nextBtn = document.querySelectorAll(".next"),
+    resultBtn = document.querySelectorAll("#result"),
     childDiv = document.getElementsByClassName("container");
-  const btnRadio = document.querySelectorAll(".btn_radio");
   let now = 0;
+
   showContent();
-  valueQuestion();
   now++;
-  btn.forEach((item, i) => {
-    item.addEventListener("click", next);
+  nextBtn.forEach((elem) => {
+    elem.addEventListener("click", next);
+  });
+  resultBtn.forEach((elem) => {
+    elem.addEventListener("click", valueQuestion);
   });
 
-  function valueQuestion(i = 0) {
-    btnRadio[i].addEventListener("change", () => {
-      let countRight = 0; //правильные ответы
-      let countWrong = 0; //неправильные ответы
-      let form = document.querySelector(".main form");
-      if (btnRadio[i].dataset.answerNum == form.dataset.correctAnswer) {
-        countRight++;
-      } else {
-        countWrong++;
+  function valueQuestion() {
+    let trueAnswers = 0;
+    let falseAnswers = 0;
+    const forms = document.querySelectorAll(".main form");
+    for (let form of forms) {
+      const inputs = form.querySelectorAll(".btn_radio");
+      for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
+          if (inputs[i].dataset.answerNum === form.dataset.correctAnswer) {
+            trueAnswers++;
+          } else if (
+            inputs[i].dataset.answerNum !== form.dataset.correctAnswer
+          ) {
+            falseAnswers++;
+          }
+        }
       }
-    });
+    }
+    let div = document.createElement("div");
+    div.classList.add("container");
+    main.prepend(div);
+    let p = document.createElement("p");
+    p.classList.add("text");
+    p.innerHTML = `Правильных ответов: ${trueAnswers}<br><br>
+    Неправильных ответов: ${falseAnswers}<br>`;
+    div.appendChild(p);
+    countBtn.style.display = "none";
+    childDiv[childDiv.length - 1].style.display = "none";
   }
+
   function next() {
     //Следующий вопрос
     showContent();
-    i++;
-    valueQuestion(i);
     now++;
+    if (!childDiv[now]) {
+      nextBtn.forEach((elem) => {
+        elem.style.display = "none";
+      });
+      resultBtn.forEach((elem) => {
+        elem.style.display = "block";
+      });
+    }
   }
 
   function showContent() {
     for (let i = 0; i < childDiv.length; i++) {
-      childDiv[i].classList.add("hide"); //присвоили класс(спрятать элемент)
-      childDiv[i].classList.remove("show");
+      childDiv[i].style.display = "none";
     }
-    childDiv[now].classList.add("show");
-    childDiv[now].classList.remove("hide");
+    childDiv[now].style.display = "block";
+
+    if (childDiv.length === now)
+      childDiv[childDiv.length - 1].style.display = "none";
   }
 });
