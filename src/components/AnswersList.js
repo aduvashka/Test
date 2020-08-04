@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const AnswersList = (props) => {
   return (
@@ -6,11 +7,12 @@ const AnswersList = (props) => {
       {props.answers.map((answer) => {
         return (
           <div>
-            <label>{answer}</label>
             <input type="radio" className="btn_radio"></input>
+            <label>{answer}</label>
           </div>
         );
       })}
+      <Button />
     </form>
   );
 };

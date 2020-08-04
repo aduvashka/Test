@@ -13,4 +13,7 @@ let test = {
   ],
   correctAnswer: [1, 0, 2, 1],
 };
+export let valueQuestion = () => {
+  alert("FFFF");
+};
 export default test;
