@@ -13,7 +13,6 @@ function App(props) {
       <QuestionsList
         questions={props.test.questions}
         answers={props.test.answers}
-        valueQuestion={props.valueQuestion}
       />
     </div>
   );

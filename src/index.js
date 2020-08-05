@@ -4,11 +4,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import test from "./redux/test";
-import { valueQuestion } from "./redux/test";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App test={test} valueQuestion={valueQuestion} />
+    <App test={test} />
   </React.StrictMode>,
   document.getElementById("root")
 );

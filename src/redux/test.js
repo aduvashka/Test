@@ -12,8 +12,9 @@ let test = {
     ["A,a", "The, the", "none"],
   ],
   correctAnswer: [1, 0, 2, 1],
+  valueQuestion() {
+    alert("FFFF");
+  },
 };
-export let valueQuestion = () => {
-  alert("FFFF");
-};
+
 export default test;
