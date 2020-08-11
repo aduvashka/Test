@@ -12,9 +12,26 @@ let test = {
     ["A,a", "The, the", "none"],
   ],
   correctAnswer: [1, 0, 2, 1],
-  valueQuestion() {
-    alert("FFFF");
-  },
 };
 
 export default test;
+/*import React from "react";
+import Button from "./Button";
+
+const AnswersList = (props) => {
+  let a = props.answers.map((ele) => {
+    return (
+      <div>
+        <label>{ele}</label>
+        <input type="radio" className="btn_radio" id={"contact"}></input>
+      </div>
+    );
+  });
+  return (
+    <form>
+      {a}
+      <Button />
+    </form>
+  );
+};
+export default AnswersList; */

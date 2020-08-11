@@ -1,19 +1,14 @@
 import React from "react";
 import Button from "./Button";
+import Answer from "./Answer";
 
 const AnswersList = (props) => {
-  let j = 0;
-  let answer = props.answers.map((ele) => {
-    ele.map((e) => {
-      return <label>{e}</label>;
-    });
-    return (
-      <input type="radio" className="btn_radio" id={"contact" + j}></input>
-    );
+  let items = props.answers.map((answer) => {
+    return <Answer answer={answer} />;
   });
   return (
     <form>
-      {answer}
+      {items}
       <Button />
     </form>
   );
