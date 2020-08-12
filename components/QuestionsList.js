@@ -4,11 +4,11 @@ import AnswersList from "./AnswersList";
 const QuestionsList = (props) => {
   return (
     <section className="main">
-      {props.questions.map((question, key) => {
+      {props.questions.map((question, index) => {
         return (
-          <div className="container" id={[key + 1]}>
+          <div className="container" key={index}>
             <p className="text">{question}</p>
-            <AnswersList answers={props.answers} />
+            <AnswersList answers={props.answers} key={index} />
           </div>
         );
       })}

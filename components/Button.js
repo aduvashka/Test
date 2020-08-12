@@ -6,14 +6,14 @@ const Button = (props) => {
       <input
         type="button"
         className="btn next"
-        Value="Next"
+        value="Next"
         onClick={props.valueQuestion}
       ></input>
       <input
         type="button"
         className="btn"
         id="result"
-        Value="Result"
+        value="Result"
         style={{ display: "none" }}
       ></input>
     </div>
